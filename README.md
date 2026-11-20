@@ -91,7 +91,15 @@ Node.js и OpenCode установщик ставит сам: если в сис
 **Одна команда на Linux (Debian/Ubuntu), без аккаунта GitHub и без токена:**
 
 ```bash
-curl -fsSLO https://github.com/bobbibob/noa-install/releases/latest/download/noa.tar.gz && echo "<SHA256>  noa.tar.gz" | sha256sum -c && tar xzf noa.tar.gz && sh noa/install.sh
+curl -fsSL https://raw.githubusercontent.com/bobbibob/noa-install/main/get.sh | bash -s -- <имя-сети> --host <домен>
+```
+
+Имя сети и домен обязательны — без них установщик остановится с подсказкой. Всё, что после `--`, передаётся в `install.sh` (см. «Linux: подробности» ниже). `get.sh` скачивает архив релиза и сверяет его SHA-256 (сумма записана в самом `get.sh`) до распаковки; при несовпадении установка не запускается.
+
+Без `get.sh`, вручную:
+
+```bash
+curl -fsSLO https://github.com/bobbibob/noa-install/releases/latest/download/noa.tar.gz && echo "<SHA256>  noa.tar.gz" | sha256sum -c && tar xzf noa.tar.gz && sh noa/install.sh <имя-сети> --host <домен>
 ```
 
 Замените `<SHA256>` суммой для текущего релиза — она указана на странице релиза ([Releases](https://github.com/bobbibob/noa-install/releases/latest), файл `noa.tar.gz.sha256`), а не внутри этого README: хэш зависит от содержимого архива, в который входит и сам README, поэтому зашить его сюда заранее невозможно. Скачанный архив сверяется с суммой *до* распаковки и запуска; при несовпадении `sha256sum -c` останавливает команду. `sudo` в команде не нужен: `install.sh` сам запросит права, если потребуется.
